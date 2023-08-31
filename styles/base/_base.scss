@@ -1,0 +1,214 @@
+// loading bar
+.loader {
+  display: flex;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 4px solid $black-opacity-20;
+  border-bottom-color: $main-color;
+  border-radius: 50%;
+  animation: rotation 1s linear infinite;
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+// tab
+.tab {
+  @include flexbox(flex-start);
+
+  &__list {
+    @include flexbox;
+    @include border($black-opacity-20);
+    height: 40px;
+    padding: 0 16px;
+    background: $white;
+    color: $black-opacity-50;
+    @include font-size-14;
+    border-radius: 24px;
+    cursor: pointer;
+    letter-spacing: -0.28px;
+
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+
+    &.active {
+      color: $white;
+      background: $black;
+    }
+  }
+}
+
+.detail_tab {
+  @include flexbox(flex-start);
+  border-top: 1px solid $black-opacity-20;
+  border-bottom: 1px solid $black-opacity-20;
+
+  &__list {
+    @include flexbox(flex-start);
+    position: relative;
+    width: auto;
+    height: 60px;
+    margin: 0 16px;
+    @include font-size-14;
+    font-weight: 400;
+    color: $black-opacity-50;
+    cursor: pointer;
+    letter-spacing: -0.28px;
+
+    &.active {
+      color: $main-color;
+      font-weight: 700;
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        left: 0;
+        bottom: -1px;
+        background: $main-color;
+      }
+    }
+  }
+}
+
+// tooltip
+.tooltip {
+  @include flexbox;
+  position: relative;
+  padding: 0 8px;
+  width: fit-content;
+  height: 24px;
+  border-radius: 4px;
+  background: rgba(25, 25, 25, 0.9);
+  box-shadow: 0px 2px 4px 0px rgba(26, 26, 26, 0.2);
+  color: #fff;
+  font-weight: 400;
+  @include font-size-10;
+  letter-spacing: -0.2px;
+
+  &.bottom {
+    &::after {
+      top: unset;
+      bottom: -5px;
+      transform: rotate(-180deg);
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    background: url("../../public/images/icon/icon_tooltip.svg") no-repeat;
+    width: 8px;
+    height: 5px;
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+// dropdown
+.dropdown {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+
+  &:nth-child(odd) {
+    margin-right: 20px;
+  }
+
+  &.show {
+    height: auto;
+    border-bottom: none;
+
+    div::after {
+      top: 13px;
+      transform: rotate(-180deg);
+    }
+
+    ul {
+      display: block;
+      border-top: none;
+      top: 34px;
+      border-radius: 0 0 12px 12px;
+    }
+  }
+
+  &__option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid rgba(25, 25, 25, 0.2);
+    border-radius: 12px;
+    padding: 11px 16px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      background: url("../../public/images/icon/icon_arrow.svg") no-repeat;
+      background-size: contain;
+    }
+
+    &-title {
+      @include font-size-14;
+      @include typography(400, 160%, $black-opacity-40);
+
+      &.selected {
+        @include typography(400, 160%, $black);
+      }
+    }
+  }
+
+  &__optionBox {
+    display: none;
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    max-height: 180px;
+    padding: 0 12px 17px 4px;
+    overflow-y: scroll;
+    border: 1px solid rgba(25, 25, 25, 0.2);
+    border-radius: 12px;
+    background: #fff;
+
+    &-list {
+      display: flex;
+      align-items: center;
+      height: 40px;
+      padding: 0 12px;
+
+      &:first-child {
+        margin-top: 11px;
+      }
+
+      &:hover {
+        background: $bg-gray;
+        border-radius: 8px;
+
+        p {
+          color: var(--main-color);
+        }
+      }
+    }
+
+    &-text {
+      @include font-size-14;
+      @include typography(400, 160%, $black-opacity-80);
+    }
+  }
+}
